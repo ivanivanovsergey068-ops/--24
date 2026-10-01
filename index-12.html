@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Объявления24 — товары, услуги и работа</title>
+<meta name="description" content="Объявления24 — современная площадка для покупки, продажи и продвижения товаров и услуг.">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --green:#16a34a;--green-dark:#087a3e;--green-soft:#eaf8ef;
+  --orange:#f97316;--yellow:#f59e0b;--red:#ef4444;
+  --ink:#17211b;--muted:#6b7280;--line:#e5e7eb;--bg:#f5f7f6;--white:#fff;
+  --shadow:0 10px 30px rgba(15,23,42,.07)
+}
+html{scroll-behavior:smooth}
+body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+a{text-decoration:none;color:inherit}
+.topbar{background:#0d2015;color:#d8eadf;font-size:13px}
+.topbar-inner{max-width:1180px;margin:auto;padding:8px 18px;display:flex;justify-content:space-between;gap:15px}
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav{max-width:1180px;margin:auto;padding:14px 18px;display:flex;align-items:center;gap:14px}
+.logo{display:flex;align-items:center;gap:9px;font-size:22px;font-weight:900;color:var(--green);white-space:nowrap}
+.logo-mark{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#16a34a,#059669);display:grid;place-items:center;color:white;font-size:20px;box-shadow:0 7px 16px rgba(22,163,74,.25)}
+.search{flex:1;position:relative}
+.search input{width:100%;height:46px;border:1px solid var(--line);border-radius:14px;background:#f8faf9;padding:0 46px 0 16px;outline:none}
+.search input:focus{border-color:#79c995;box-shadow:0 0 0 4px rgba(22,163,74,.09)}
+.search-icon{position:absolute;right:15px;top:11px;color:#7b857e}
+.btn{border:0;border-radius:12px;padding:11px 16px;font-weight:800;transition:.18s;display:inline-flex;align-items:center;justify-content:center;gap:7px}
+.btn:hover{transform:translateY(-1px)}
+.btn-green{background:var(--green);color:white;box-shadow:0 7px 15px rgba(22,163,74,.18)}
+.btn-dark{background:#17211b;color:#fff}
+.btn-light{background:#eef3ef;color:#173321}
+.btn-orange{background:var(--orange);color:#fff}
+.container{max-width:1180px;margin:auto;padding:22px 18px}
+.hero{position:relative;overflow:hidden;border-radius:28px;padding:42px 38px;color:#fff;background:linear-gradient(125deg,#075b3d 0%,#0d8a4d 52%,#18ad58 100%);box-shadow:0 18px 40px rgba(7,91,61,.18)}
+.hero:before,.hero:after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.08)}
+.hero:before{width:330px;height:330px;right:-100px;top:-150px}
+.hero:after{width:220px;height:220px;right:190px;bottom:-150px}
+.hero-content{position:relative;z-index:1;max-width:730px}
+.kicker{display:inline-flex;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.18);padding:7px 11px;border-radius:999px;font-size:12px;font-weight:800;margin-bottom:14px}
+.hero h1{font-size:clamp(34px,5.5vw,58px);line-height:1.02;letter-spacing:-1.7px;margin-bottom:14px}
+.hero p{font-size:17px;color:#e6fff0;max-width:690px;margin-bottom:23px}
+.hero-actions{display:flex;flex-wrap:wrap;gap:10px}
+.hero .btn-white{background:#fff;color:#11633e}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:620px;margin-top:28px}
+.stat{background:rgba(0,0,0,.12);border:1px solid rgba(255,255,255,.12);padding:12px 14px;border-radius:15px}
+.stat strong{display:block;font-size:23px}.stat span{font-size:12px;color:#d7f4e2}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:15px;margin:30px 0 14px}
+.section-head h2{font-size:24px}.section-head p{font-size:13px;color:var(--muted)}
+.categories{display:grid;grid-template-columns:repeat(6,1fr);gap:11px}
+.cat{border:1px solid var(--line);background:#fff;border-radius:17px;padding:16px 10px;text-align:center;font-weight:800;box-shadow:0 4px 14px rgba(15,23,42,.04);transition:.18s}
+.cat:hover{transform:translateY(-2px);border-color:#a8dcb8}
+.cat-icon{font-size:27px;display:block;margin-bottom:7px}.cat small{display:block;color:var(--muted);font-weight:500;margin-top:2px}
+.promo{margin-top:30px;border-radius:22px;background:#fff7ed;border:1px solid #fed7aa;padding:18px;display:flex;justify-content:space-between;align-items:center;gap:15px}
+.promo strong{display:block;color:#9a3412;font-size:18px}.promo span{color:#9a3412;font-size:13px}
+.controls{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0 16px}
+.select{padding:11px 13px;border:1px solid var(--line);border-radius:12px;background:#fff;outline:none}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow);transition:.18s}
+.card:hover{transform:translateY(-3px);box-shadow:0 16px 35px rgba(15,23,42,.1)}
+.photo{height:190px;background:linear-gradient(135deg,#eaf8ef,#f5faf6);display:grid;place-items:center;font-size:78px;position:relative}
+.photo img{width:100%;height:100%;object-fit:cover}
+.badges{position:absolute;left:10px;top:10px;display:flex;gap:5px;flex-wrap:wrap}
+.badge{padding:5px 8px;border-radius:8px;font-size:10px;font-weight:900;background:#fff;color:#374151;box-shadow:0 4px 12px rgba(0,0,0,.1)}
+.badge.hot{background:var(--orange);color:#fff}
+.cardbody{padding:14px}
+.category{font-size:11px;color:var(--green);font-weight:900;text-transform:uppercase;letter-spacing:.4px}
+.title{font-size:17px;font-weight:850;margin:4px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.desc{font-size:13px;color:var(--muted);height:40px;overflow:hidden}
+.price{font-size:20px;font-weight:900;margin:10px 0 3px}
+.meta{font-size:11px;color:#8a938d;margin-bottom:12px}
+.actions{display:flex;gap:7px}.actions button{flex:1;padding:9px;border:0;border-radius:10px;font-weight:800}
+.empty{grid-column:1/-1;text-align:center;padding:65px 20px;background:#fff;border:1px dashed #cfd8d2;border-radius:18px;color:var(--muted)}
+footer{margin-top:45px;background:#0d2015;color:#d8eadf}
+.footer-inner{max-width:1180px;margin:auto;padding:35px 18px;display:grid;grid-template-columns:2fr 1fr 1fr;gap:25px}
+.footer-logo{font-size:20px;font-weight:900;color:#fff;margin-bottom:8px}.footer p,.footer a{font-size:13px;color:#a9c2b1}
+.footer h3{color:#fff;font-size:14px;margin-bottom:9px}
+.footer-links{display:grid;gap:5px}
+.copyright{border-top:1px solid rgba(255,255,255,.08);text-align:center;padding:13px;font-size:12px;color:#91aa99}
+.overlay{display:none;position:fixed;inset:0;background:rgba(2,8,4,.68);backdrop-filter:blur(4px);z-index:100;padding:14px;align-items:center;justify-content:center}
+.overlay.show{display:flex}
+.modal{width:min(650px,100%);max-height:92vh;overflow:auto;background:#fff;border-radius:23px;padding:23px;box-shadow:0 25px 70px rgba(0,0,0,.25)}
+.close{float:right;border:0;background:#f0f3f1;border-radius:10px;width:37px;height:37px;font-weight:900}
+.modal h2{margin-bottom:14px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{margin-bottom:10px}.field.full{grid-column:1/-1}
+.field label{display:block;font-size:12px;font-weight:800;margin-bottom:5px}.field input,.field textarea,.field select{width:100%;padding:11px;border:1px solid var(--line);border-radius:11px;outline:none;background:#fff}.field textarea{min-height:105px;resize:vertical}
+.notice{padding:12px;border-radius:12px;background:#fff7ed;color:#9a3412;font-size:12px;margin:8px 0 15px}
+.admin{background:#111827;color:#fff}.admin h2{color:#fff}.admin .field label{color:#d1d5db}.admin input,.admin select{background:#1f2937;color:#fff;border-color:#374151}
+.admin-card{background:#1f2937;border-radius:14px;padding:15px;margin:10px 0}.admin-actions{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.admin table{width:100%;border-collapse:collapse;font-size:12px}.admin th,.admin td{padding:9px;border-bottom:1px solid #374151;text-align:left}.admin td button{border:0;border-radius:7px;padding:6px;margin:2px}
+.detail-photo{height:240px;border-radius:16px;background:#edf9f1;display:grid;place-items:center;font-size:100px}
+.detail-price{font-size:27px;font-weight:900;margin:8px 0}.small{font-size:12px;color:var(--muted)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#17211b;color:#fff;padding:11px 15px;border-radius:12px;z-index:200;transition:.2s;font-size:13px}.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}.categories{grid-template-columns:repeat(3,1fr)}.footer-inner{grid-template-columns:1fr 1fr}}
+@media(max-width:650px){
+ .topbar-inner{justify-content:center}.topbar-inner span:last-child{display:none}
+ .nav{flex-wrap:wrap;padding:10px 12px}.logo{font-size:19px}.search{order:3;flex-basis:100%}
+ .nav>.btn{padding:9px 10px;font-size:12px}.hero{padding:28px 20px;border-radius:22px}.hero h1{font-size:38px}.hero p{font-size:15px}
+ .stats{gap:7px}.stat{padding:10px}.stat strong{font-size:19px}.stat span{font-size:10px}
+ .container{padding:14px 12px}.categories{grid-template-columns:repeat(3,1fr);gap:7px}.cat{padding:12px 5px;font-size:12px}.cat-icon{font-size:22px}
+ .grid{grid-template-columns:repeat(2,1fr);gap:10px}.photo{height:135px;font-size:55px}.cardbody{padding:10px}.title{font-size:15px}.price{font-size:17px}.actions button{font-size:11px;padding:8px}
+ .promo{align-items:flex-start;flex-direction:column}.footer-inner{grid-template-columns:1fr}.formgrid{grid-template-columns:1fr}.field.full{grid-column:auto}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="topbar-inner"><span>🇹🇯 Объявления по Таджикистану</span><span>Быстро. Просто. 24/7.</span></div></div>
+
+<header>
+  <div class="nav">
+    <a class="logo" href="#"><span class="logo-mark">24</span>Объявления24</a>
+    <div class="search"><input id="search" placeholder="Что ищете? Например: телефон, машина, квартира..." oninput="render()"><span class="search-icon">⌕</span></div>
+    <button class="btn btn-green" onclick="openAdd()">＋ Подать</button>
+    <button class="btn btn-light" onclick="openAdmin()">⚙ Админ</button>
+  </div>
+</header>
+
+<main class="container">
+  <section class="hero">
+    <div class="hero-content">
+      <span class="kicker">🔥 Новая площадка объявлений</span>
+      <h1>Продайте то, что вам больше не нужно.</h1>
+      <p>Размещайте товары, услуги и предложения работы. Больше просмотров — с платным продвижением всего за <b>20 сомони</b>.</p>
+      <div class="hero-actions">
+        <button class="btn btn-white" onclick="openAdd()">＋ Разместить объявление</button>
+        <button class="btn" style="background:rgba(255,255,255,.13);color:#fff;border:1px solid rgba(255,255,255,.25)" onclick="document.getElementById('ads').scrollIntoView()">Смотреть объявления →</button>
+      </div>
+      <div class="stats">
+        <div class="stat"><strong id="statAds">0</strong><span>объявлений</span></div>
+        <div class="stat"><strong>20 с.</strong><span>продвижение</span></div>
+        <div class="stat"><strong>24/7</strong><span>доступ</span></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-head"><div><h2>Категории</h2><p>Выберите нужный раздел</p></div></div>
+  <section class="categories">
+    <button class="cat" onclick="chooseCat('Недвижимость')"><span class="cat-icon">🏠</span>Недвижимость<small>Квартиры и дома</small></button>
+    <button class="cat" onclick="chooseCat('Авто')"><span class="cat-icon">🚗</span>Авто<small>Машины и запчасти</small></button>
+    <button class="cat" onclick="chooseCat('Телефоны')"><span class="cat-icon">📱</span>Телефоны<small>Смартфоны</small></button>
+    <button class="cat" onclick="chooseCat('Электроника')"><span class="cat-icon">💻</span>Электроника<small>Техника</small></button>
+    <button class="cat" onclick="chooseCat('Работа')"><span class="cat-icon">💼</span>Работа<small>Вакансии</small></button>
+    <button class="cat" onclick="chooseCat('Услуги')"><span class="cat-icon">🛠️</span>Услуги<small>Помощь и сервис</small></button>
+  </section>
+
+  <section class="promo">
+    <div><strong>🚀 Поднимите объявление вверх</strong><span>Продвижение выделяет объявление и помогает получить больше внимания.</span></div>
+    <button class="btn btn-orange" onclick="openAdd()">Продвинуть за 20 с.</button>
+  </section>
+
+  <section id="ads">
+    <div class="section-head"><div><h2>Свежие объявления</h2><p>Новые предложения появляются здесь</p></div></div>
+    <div class="controls">
+      <select id="category" class="select" onchange="render()">
+        <option value="">Все категории</option><option>Недвижимость</option><option>Авто</option><option>Телефоны</option><option>Электроника</option><option>Одежда</option><option>Дом</option><option>Работа</option><option>Услуги</option><option>Другое</option>
+      </select>
+      <select id="sort" class="select" onchange="render()">
+        <option value="new">Сначала новые</option><option value="cheap">Сначала дешёвые</option><option value="promo">Сначала продвигаемые</option>
+      </select>
+    </div>
+    <section id="grid" class="grid"></section>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div><div class="footer-logo">Объявления24</div><p>Место, где люди продают, покупают и находят услуги.</p></div>
+    <div><h3>Пользователям</h3><div class="footer-links"><a href="#" onclick="openAdd();return false">Подать объявление</a><a href="#ads">Найти товар</a></div></div>
+    <div><h3>Для продавцов</h3><div class="footer-links"><a href="#" onclick="openAdd();return false">Разместить товар</a><a href="#" onclick="openAdmin();return false">Администратор</a></div></div>
+  </div>
+  <div class="copyright">© 2026 Объявления24 · Размещение бесплатно · Продвижение 20 сомони</div>
+</footer>
+
+<div id="addModal" class="overlay"><div class="modal">
+<button class="close" onclick="closeModal('addModal')">✕</button>
+<h2>➕ Новое объявление</h2>
+<div class="notice">Размещение объявления бесплатно. После публикации администратор может отметить продвижение за 20 сомони. Для настоящего онлайн-платежа потребуется подключить платёжный сервис.</div>
+<div class="formgrid">
+<div class="field full"><label>Название *</label><input id="fTitle" placeholder="Например: Toyota Camry 2018"></div>
+<div class="field"><label>Категория</label><select id="fCat"><option>Недвижимость</option><option>Авто</option><option>Телефоны</option><option>Электроника</option><option>Одежда</option><option>Дом</option><option>Работа</option><option>Услуги</option><option>Другое</option></select></div>
+<div class="field"><label>Цена, сомони</label><input id="fPrice" type="number" min="0" placeholder="1500"></div>
+<div class="field"><label>Ваше имя</label><input id="fName" placeholder="Имя"></div>
+<div class="field"><label>Телефон</label><input id="fPhone" placeholder="+992..."></div>
+<div class="field full"><label>Описание *</label><textarea id="fDesc" placeholder="Подробно опишите товар или услугу"></textarea></div>
+<div class="field"><label>Значок товара</label><input id="fEmoji" value="📦" maxlength="4"></div>
+</div>
+<button class="btn btn-green" style="width:100%" onclick="createAd()">Опубликовать объявление</button>
+</div></div>
+
+<div id="viewModal" class="overlay"><div class="modal">
+<button class="close" onclick="closeModal('viewModal')">✕</button><div id="viewContent"></div>
+</div></div>
+
+<div id="adminModal" class="overlay"><div class="modal admin">
+<button class="close" onclick="closeModal('adminModal')">✕</button><div id="adminContent"></div>
+</div></div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+const KEY="obyav24_ads_v2";
+let ads=JSON.parse(localStorage.getItem(KEY)||"[]");
+
+function save(){localStorage.setItem(KEY,JSON.stringify(ads))}
+function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+function money(n){return Number(n||0).toLocaleString("ru-RU")+" сомони"}
+function closeModal(id){document.getElementById(id).classList.remove("show")}
+function openAdd(){document.getElementById("addModal").classList.add("show")}
+function toast(s){let t=document.getElementById("toast");t.textContent=s;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),1800)}
+
+function chooseCat(cat){
+  document.getElementById("category").value=cat;
+  document.getElementById("ads").scrollIntoView({behavior:"smooth"});
+  render();
+}
+function createAd(){
+  const title=document.getElementById("fTitle").value.trim(), desc=document.getElementById("fDesc").value.trim();
+  if(!title||!desc){alert("Заполните название и описание.");return}
+  const ad={
+    id:Date.now(),title,category:document.getElementById("fCat").value,
+    price:Number(document.getElementById("fPrice").value||0),
+    name:document.getElementById("fName").value.trim()||"Продавец",
+    phone:document.getElementById("fPhone").value.trim(),desc,
+    emoji:document.getElementById("fEmoji").value||"📦",
+    promoted:false,paid:false,created:new Date().toISOString(),views:0
+  };
+  ads.unshift(ad);save();closeModal("addModal");render();toast("Объявление опубликовано!");
+  ["fTitle","fDesc","fPrice","fName","fPhone"].forEach(id=>document.getElementById(id).value="");
+  document.getElementById("fEmoji").value="📦";
+}
+function render(){
+  const q=(document.getElementById("search").value||"").toLowerCase(),cat=document.getElementById("category").value,sort=document.getElementById("sort").value;
+  let list=ads.filter(a=>(!cat||a.category===cat)&&(!q||(a.title+" "+a.desc+" "+a.category+" "+a.name).toLowerCase().includes(q)));
+  if(sort==="cheap")list.sort((a,b)=>(a.price||Infinity)-(b.price||Infinity));
+  if(sort==="promo")list.sort((a,b)=>Number(b.promoted)-Number(a.promoted));
+  document.getElementById("grid").innerHTML=list.length?list.map(a=>`
+    <article class="card">
+      <div class="photo"><div class="badges">${a.promoted?'<span class="badge hot">🔥 ТОП</span>':''}<span class="badge">${esc(a.category)}</span></div>${esc(a.emoji)}</div>
+      <div class="cardbody">
+        <div class="category">${esc(a.category)}</div><div class="title">${esc(a.title)}</div>
+        <div class="desc">${esc(a.desc)}</div>
+        <div class="price">${a.price?money(a.price):"Цена договорная"}</div>
+        <div class="meta">👤 ${esc(a.name)} · 👁 ${a.views||0}</div>
+        <div class="actions"><button class="btn-light" onclick="viewAd(${a.id})">Подробнее</button><button class="btn-green" onclick="contactAd(${a.id})">Связаться</button></div>
+      </div>
+    </article>`).join(""):'<div class="empty"><div style="font-size:45px;margin-bottom:10px">📦</div><b>Пока нет объявлений</b><br>Будьте первым — разместите своё объявление.</div>';
+  document.getElementById("statAds").textContent=ads.length;
+}
+function viewAd(id){
+  const a=ads.find(x=>x.id===id);if(!a)return;a.views=(a.views||0)+1;save();
+  document.getElementById("viewContent").innerHTML=`
+    <div class="detail-photo">${esc(a.emoji)}</div>
+    <h2 style="margin-top:15px">${esc(a.title)}</h2><div class="category">${esc(a.category)}</div>
+    <div class="detail-price">${a.price?money(a.price):"Цена договорная"}</div>
+    <p style="margin:10px 0 15px">${esc(a.desc)}</p>
+    <p class="small">Продавец: ${esc(a.name)} · Просмотров: ${a.views}</p>
+    <button class="btn btn-green" style="width:100%;margin-top:16px" onclick="contactAd(${a.id})">📞 Показать контакт</button>`;
+  document.getElementById("viewModal").classList.add("show");
+}
+function contactAd(id){
+  const a=ads.find(x=>x.id===id);if(!a)return;
+  if(a.phone)alert("Телефон продавца: "+a.phone);else alert("Продавец пока не указал телефон.");
+}
+function openAdmin(){
+  document.getElementById("adminContent").innerHTML=`
+    <h2>⚙ Панель администратора</h2>
+    <div class="field"><label>Пароль администратора</label><input id="adminPass" type="password" placeholder="Введите пароль"></div>
+    <button class="btn btn-green" onclick="loginAdmin()">Войти</button>
+    <p style="font-size:11px;color:#9ca3af;margin-top:10px">Демо-пароль: <b>admin123</b>. Важно: настоящий защищённый админ-доступ нельзя надёжно реализовать только в index.html.</p>`;
+  document.getElementById("adminModal").classList.add("show");
+}
+function loginAdmin(){
+  if(document.getElementById("adminPass").value!=="admin123"){alert("Неверный пароль.");return}
+  showDashboard();
+}
+function showDashboard(){
+  const promoted=ads.filter(a=>a.promoted).length;
+  document.getElementById("adminContent").innerHTML=`
+    <h2>👑 Админ-панель</h2>
+    <div class="admin-card">Объявлений: <b>${ads.length}</b> · Продвигаемых: <b>${promoted}</b> · Оплачено продвижений: <b>${money(ads.filter(a=>a.paid).length*20)}</b></div>
+    <div class="admin-actions"><button class="btn btn-green" onclick="seedDemo()">Добавить тестовые</button><button style="background:#dc2626;color:#fff" class="btn" onclick="clearAll()">Удалить все</button></div>
+    <div style="overflow:auto"><table><thead><tr><th>Объявление</th><th>Статус</th><th>Действия</th></tr></thead><tbody>
+    ${ads.map(a=>`<tr><td>${esc(a.title)}<br><span style="color:#9ca3af">${esc(a.name)}</span></td><td>${a.promoted?"🔥 ТОП":"Обычное"}</td><td><button onclick="togglePromo(${a.id})">${a.promoted?"Снять":"Продвинуть 20с."}</button><button onclick="deleteAd(${a.id})">Удалить</button></td></tr>`).join("")}
+    </tbody></table></div>
+    <p style="font-size:11px;color:#9ca3af;margin-top:13px">Эта версия хранит данные в браузере. Для общего сайта, где объявления видны всем посетителям с разных телефонов, нужен сервер/база данных.</p>`;
+}
+function togglePromo(id){
+  const a=ads.find(x=>x.id===id);if(!a)return;
+  if(!a.promoted){if(!confirm("Подтвердить оплату продвижения 20 сомони?"))return;a.promoted=true;a.paid=true}else a.promoted=false;
+  save();render();showDashboard();
+}
+function deleteAd(id){if(confirm("Удалить объявление?")){ads=ads.filter(x=>x.id!==id);save();render();showDashboard()}}
+function clearAll(){if(confirm("Удалить ВСЕ объявления?")){ads=[];save();render();showDashboard()}}
+function seedDemo(){
+  const now=Date.now();
+  ads.unshift(
+    {id:now,title:"iPhone 15",category:"Телефоны",price:4200,name:"Тестовый продавец",phone:"+992900000000",desc:"Новый телефон, отличное состояние.",emoji:"📱",promoted:true,paid:true,created:new Date().toISOString(),views:12},
+    {id:now+1,title:"Toyota Camry",category:"Авто",price:95000,name:"Мухаммад",phone:"+992900000001",desc:"Автомобиль в хорошем состоянии.",emoji:"🚗",promoted:false,paid:false,created:new Date().toISOString(),views:8},
+    {id:now+2,title:"Квартира",category:"Недвижимость",price:2500,name:"Саид",phone:"+992900000002",desc:"Уютная квартира, подробности по телефону.",emoji:"🏠",promoted:false,paid:false,created:new Date().toISOString(),views:5}
+  );save();render();showDashboard();
+}
+render();
+</script>
+</body>
+</html>
